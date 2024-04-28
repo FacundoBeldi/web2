@@ -82,20 +82,98 @@ const usuarios = [
         active: true,
         password: 'admin',
         bornDate: 725846400000,
-        location: 'La Luna',
+        location: 'La Lucila',
         image: 'https://oyster.ignimgs.com/mediawiki/apis.ign.com/mario-kart-for-wii-u/7/71/Mk8iconyoshi.png?width=1280',
         role: 'ADMIN_ROLE'
     },
     {
         fullname: 'Facundo Beldi',
-        age: 30,
+        age: 24,
         email: 'facu@gmail.com',
         id: '2',
         active: true,
         password: 'user',
+        bornDate: '1999-06-15',
+        location: 'Escobar',
+        image: 'https://randomuser.me/api/portraits',
+        role: 'user'
+    },
+    {
+        fullname: 'Juan Tasin',
+        age: 24,
+        email: 'juan@gmail.com',
+        id: '3',
+        active: true,
+        password: 'user',
+        bornDate: '1999-05-19',
+        location: 'Garin',
+        image: 'https://randomuser.me/api/portraits',
+        role: 'user'
+    },
+    {
+        fullname: 'Renzo Colombo',
+        age: 28,
+        email: 'renzo@gmail.com',
+        id: '4',
+        active: true,
+        password: 'user',
         bornDate: '1991-05-19',
-        location: 'La Lucila',
+        location: 'Maschwitz',
         image: 'https://randomuser.me/api/portraits',
         role: 'user'
     },
 ];
+
+
+
+usuarios.forEach(function (usuario, indice) {
+    // console.log(prod, indice)
+    console.log(usuario['fullname'])
+
+    let numeracion;
+
+    if (indice < 10) {
+        numeracion = "0" + indice;
+    } else {
+        numeracion = indice;
+    }
+
+    document.write("${numeracion} - ${prod.nombre} al precio $${prod.precio} <br>")
+})
+
+//MAPEO --> A diferencia del for, que recorres el array, acá hacer un array nuevo
+
+const usuariosFinal = usuarios.map(function (usuario, indice) {
+    const ususariosModificado = {
+        fullname: usuarios.fullname.toUpperCase(),
+        email: usuarios.email,
+    }
+    return ususariosModificado
+})
+
+console.log(usuariosFinal)
+
+//Filter
+
+const usuariosFiltrados = usuarios.filter(function (usuario, indice) {
+    if (usuario.active) {
+        return true
+    }
+    else {
+        return false
+    }
+})
+
+console.log(productosFiltrados)
+
+//Find
+//Una iteración que cumple 1 solo. Es decir, va a mostrar el primer Adidas, no todos.
+const usuarioEncontrado = usuarios.find((user) => {
+    if (user.id === '1') {
+        return true
+    } else {
+        return false
+    }
+})
+
+console.log(usuarioEncontrado)
