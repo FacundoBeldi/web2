@@ -283,15 +283,15 @@ function inputSearch(evt) {
 
 //Ordenamiento
 
-function sortDesc(){
-    users.sort((a, b) =>{
-        if(a.fullname.toLocaleLowerCase()<b.fullname.toLocaleLowerCase()){
+function sortDesc() {
+    users.sort((a, b) => {
+        if (a.fullname.toLocaleLowerCase() < b.fullname.toLocaleLowerCase()) {
             return 1;
         }
-        if(a.fullname.toLocaleLowerCase()>b.fullname.toLocaleLowerCase()){
+        if (a.fullname.toLocaleLowerCase() > b.fullname.toLocaleLowerCase()) {
             return -1;
         }
-        else{
+        else {
             return 0;
         }
     })
@@ -299,15 +299,15 @@ function sortDesc(){
     renderUsers(users);
 }
 
-function sortAsc(){
-    users.sort((a, b) =>{
-        if(a.fullname.toLocaleLowerCase()>b.fullname.toLocaleLowerCase()){
+function sortAsc() {
+    users.sort((a, b) => {
+        if (a.fullname.toLocaleLowerCase() > b.fullname.toLocaleLowerCase()) {
             return 1;
         }
-        if(a.fullname.toLocaleLowerCase()<b.fullname.toLocaleLowerCase()){
+        if (a.fullname.toLocaleLowerCase() < b.fullname.toLocaleLowerCase()) {
             return -1;
         }
-        else{
+        else {
             return 0;
         }
     })
@@ -317,14 +317,14 @@ function sortAsc(){
 
 //Eliminar Usuario
 
-function deleteUser(idUser){
-    const indice = users.findIndex((usr)=>{ //obtengo el indice
-        if  (usr.id === idUser){ //me fijo si el indice coincide con el id del usuario
+function deleteUser(idUser) {
+    const indice = users.findIndex((usr) => { //obtengo el indice
+        if (usr.id === idUser) { //me fijo si el indice coincide con el id del usuario
             return true; //verdadero si coincide
         }
     })
-    if(indice === -1){ //si no coincide, error
-        SwalFire({title: "Error al borrar", text:"No se pudo encontrar el usuario", icon: "error"})
+    if (indice === -1) { //si no coincide, error
+        SwalFire({ title: "Error al borrar", text: "No se pudo encontrar el usuario", icon: "error" })
         return;
     }
 
