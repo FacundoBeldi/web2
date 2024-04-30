@@ -1,23 +1,26 @@
-*{
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
-#main{
+#main {
     background-color: var(--color-suave);
     color: var(--color-fuentes);
 }
 
 :root {
-    --color-fuentes: #003049; /* Azul primario */
-    --color-rojo: #d62828; /* Gris secundario */
+    --color-fuentes: #003049;
+    /* Azul primario */
+    --color-rojo: #d62828;
+    /* Gris secundario */
     --color-naranja: #f77f00;
-    --color-intermedio: #fcbf49; /* Amarillo destacado */
+    --color-intermedio: #fcbf49;
+    /* Amarillo destacado */
     --color-suave: #eae2b7;
 }
 
-.contenedor{
+.contenedor {
     display: flex;
     padding: 1rem;
     justify-content: space-between;
@@ -26,7 +29,7 @@
     padding-top: 2rem;
 }
 
-.contenedor h1{
+.contenedor h1 {
     background-color: var(--color-intermedio);
     text-align: center;
     border: var(--color-naranja) 2px solid;
@@ -35,6 +38,7 @@
     justify-content: center;
     padding: 2px;
 }
+
 .formulario {
     margin: 5px;
     width: 30%;
@@ -45,25 +49,34 @@
     width: 70%;
 }
 
-.d-flex{
+.user-image img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.d-flex {
     margin: 2rem;
 }
 
-.cont-btn{
+.cont-btn {
     display: flex;
     justify-content: center;
     gap: 1rem;
 }
 
-@media  screen and (max-width: 768px) {
-    .contenedor{
+@media screen and (max-width: 768px) {
+    .contenedor {
         flex-direction: column;
         gap: 2rem;
     }
+
     .formulario {
         width: 100%;
     }
+
     .tabla {
         width: 100%;
-    }    
+    }
 }
