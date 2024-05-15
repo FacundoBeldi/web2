@@ -247,21 +247,20 @@ function renderUsers(arrayUsers) {
         <td class="user-mail"> ${user.email}</td>
         <td class="user-city"> ${user.location}</td>
         <td class="user-age"> ${user.age}</td>
-        <td class="user-active> ${user.active}</td>
+        <td class="user-active"> ${user.active}</td>
         <td class="cont-btn">
         <button class="btn btn-danger btn-sm" onclick="deleteUser('${user.id}')">
             <i class="fa-solid fa-trash"></i>
         </button>
-        <button class="btn btn-primary btn-sm" onclick="deleteUser('${user.id}')">
+        <button class="btn btn-primary btn-sm" data-edit="${user.id}">
             <i class="fa-solid fa-pencil"></i>
         </button>
         </td>
     </tr>
     `
-    })
+    });
+    updateEditButtons();
 }
-
-renderUsers(users);
 
 //Busqueda de usuarios
 
@@ -332,3 +331,24 @@ function deleteUser(idUser) {
 
     renderUsers(users) //vuelvo a pintar la tabla
 }
+
+//Editar usuarios
+
+let isEditing;
+let userButtonsEdit;
+const totalHTML = document.getElementById("total");
+const userFormHTML = document.querySelector("#user-form"); //obtener el formulario html
+const btnSubmitHTML = userFormHTML.querySelector('button[type="submit"]'); 
+const formContainerHTML = document.querySelector(".user-form-container");
+
+function updateEditButtons(){
+    userButtonsEdit = document.querySelectorAll('button[data-edit]'); //obtener todos los botones de editar
+    userButtonsEdit.forEach((btn) => {
+        btn.addEventListener('click', (evt) => {
+            console.log("entre");
+            const id = evt.currentTarget.dataset.edit;
+        })
+    })
+}
+
+renderUsers(users);
