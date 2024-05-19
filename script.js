@@ -81,7 +81,7 @@ const users = [
         id: '1',
         active: true,
         password: 'admin',
-        bornDate: 725846400000,
+        bornDate: '1999-06-16',
         location: 'La Lucila',
         image: 'https://randomuser.me/api/portraits/men/68.jpg',
         role: 'ADMIN_ROLE'
@@ -247,7 +247,6 @@ function renderUsers(arrayUsers) {
         <td class="user-mail"> ${user.email}</td>
         <td class="user-city"> ${user.location}</td>
         <td class="user-age"> ${user.age}</td>
-        <td class="user-active"> ${user.active}</td>
         <td class="cont-btn">
         <button class="btn btn-danger btn-sm" onclick="deleteUser('${user.id}')">
             <i class="fa-solid fa-trash"></i>
@@ -338,15 +337,101 @@ let isEditing;
 let userButtonsEdit;
 const totalHTML = document.getElementById("total");
 const userFormHTML = document.querySelector("#user-form"); //obtener el formulario html
-const btnSubmitHTML = userFormHTML.querySelector('button[type="submit"]'); 
-const formContainerHTML = document.querySelector(".user-form-container");
+const btnSubmitHTML = userFormHTML.querySelector('button[type="submit"]');
+const formContainerHTML = document.querySelector(".formulario"); //aca obtenemos todo el contenedor del formulario para la estetica
 
-function updateEditButtons(){
+//Agregar un usuario nuevo, cuando toco submit
+userFormHTML.addEventListener('submit', (evento) => {
+
+    evento.preventDefault(); //evitar que se recargue la pagina
+
+    const el = evento.target.elements; //obtener los elementos del formulario
+
+    if (el["password-repeat"].value !== el.password.value) {
+        Swal.fire({ title: "Error", text: "Las contraseñas no coinciden", icon: "error" })
+        return;
+    }
+
+    const newUser = {
+
+        //Operadoror ternario
+        id: isEditing ? isEditing : crypto.randomUUID(), //Es un if de una linea. Evalua si isEditing es true o false
+        //Si es verdadero, devuelve isEditing, si es falso, devuelve el randomUUID
+        
+
+        fullname: el.fullname.value,
+        email: el.email.value,
+        password: el.password.value,
+        location: el.location.value,
+        bornDate: new Date(el.bornDate.value).getTime(),
+        image: el.image.value,
+        active: el.active.checked
+    }
+
+    console.log(newUser);
+
+    if (isEditing) {
+        const indice = users.findIndex((usr) => {
+            if (usr.id === isEditing) {
+                return true;
+            }
+        });
+        users[indice] = newUser;
+    } else {
+        users.push(newUser);
+    }
+
+    renderUsers(users);
+
+    isEditing = undefined;
+
+    formContainerHTML.classList.remove('form-edit');
+    btnSubmitHTML.classList.remove('btn-success');
+    btnSubmitHTML.classList.add('btn-primary');
+    btnSubmitHTML.innerText = "Cargar";
+    userFormHTML.reset();
+    el.fullname.focus();
+});
+
+//Funcion para completar el formulario
+function completeUserForm(idUser) {
+    isEditing = idUser;
+
+    const user = users.find((usr) => usr.id === idUser); // Encuentra el usuario con el id especificado
+
+    if (!user) { // Verifica si el usuario fue encontrado
+        Swal.fire({ title: "Error al editar", text: "No se pudo encontrar el usuario", icon: "error" });
+        return;
+    }
+
+    //Rellenar el formulario
+
+    const el = userFormHTML.elements;
+    el.fullname.value = user.fullname;
+    el.email.value = user.email;
+    el.password.value = user.password;
+    el["password-repeat"].value = user.password;
+    el.location.value = user.location;
+    el.bornDate.value = user.bornDate;
+    el.image.value = user.image;
+    el.active.checked = user.active;
+
+    //esto es estética para cuando editamos
+
+    formContainerHTML.classList.add('form-edit'); //agregamos la clase form-edit
+    btnSubmitHTML.classList.remove('btn-primary'); //removemos la clase btn-primary
+    btnSubmitHTML.classList.add('btn-success'); //agregamos la clase btn-success
+    btnSubmitHTML.innerText = "Editar"; //cambiamos el texto del boton
+}
+
+
+function updateEditButtons() {
     userButtonsEdit = document.querySelectorAll('button[data-edit]'); //obtener todos los botones de editar
     userButtonsEdit.forEach((btn) => {
         btn.addEventListener('click', (evt) => {
             console.log("entre");
-            const id = evt.currentTarget.dataset.edit;
+            const id = evt.currentTarget.dataset.edit; //acá guardamos el ID del boton que se clickeo
+            completeUserForm(id);
         })
     })
 }
